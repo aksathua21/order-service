@@ -6,6 +6,7 @@ import com.arun.orderservice.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Order> getAllOrders() {
-        return orderDAO.fetchAllOrder().stream().sorted().collect(Collectors.toList());
+        return orderDAO.fetchAllOrder().stream().sorted(Comparator.comparingDouble(Order::getPrice))
+                .collect(Collectors.toList());
     }
 }
