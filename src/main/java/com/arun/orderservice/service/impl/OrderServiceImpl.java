@@ -7,14 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDAO orderDAO;
+
     @Override
     public List<Order> getAllOrders() {
-        return orderDAO.fetchAllOrder();
+        return orderDAO.fetchAllOrder().stream().sorted().collect(Collectors.toList());
     }
 }
